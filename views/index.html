@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Web-Integration</title>
+  </head>
+
+  <body>
+    <hr />
+    <h2>THIS IS WHAT YOU SHOUD BUY!</h2>
+    <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil ratione temporibus unde sit debitis, sunt obcaecati distinctio iusto, hic, facilis vitae.</h3>
+
+    </ul>
+
+    <span>
+      Buy this
+      <button id="pay-button">Pay Now</button>
+    </span>
+
+
+
+<!--Inside index.html -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+	"key": "rzp_live_svKzaYRvT2yn56",
+	"amount": "10",
+	"currency": "INR",
+	"name": "Shivam tiwari",
+	"description": "Pay & Checkout this" ,
+	"order_id": "order_HdPuQW0s9hY9AU",
+	"handler": function (response){
+		console.log(response)
+		alert("This step of Payment Succeeded");
+	},
+	"prefill": {
+		//Here we are prefilling random contact
+		"contact":"9876543210",
+		//name and email id, so while checkout
+		"email": "shivatiwari1648@gmail.com" ,
+	},
+	"notes" : {
+		"description":"Best thing to buy",
+	},
+	"theme": {
+		"color": "#2300a3"
+	}
+};
+var razorpayObject = new Razorpay(options);
+console.log(razorpayObject);
+razorpayObject.on('payment.failed', function (response){
+		console.log(response);
+		alert("This step of Payment Failed");
+});
+	
+document.getElementById('pay-button').onclick = function(e){
+	razorpayObject.open();
+	e.preventDefault();
+}
+</script>
+
+
+
+
+  </body>
+</html>
